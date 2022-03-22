@@ -1,34 +1,25 @@
 #include <iostream>
 #include <windows.h>
+#include <conio.h>
 #include <cmath>
+#include "Console.h"
 
 using namespace std;
 
+int WHITE = 0x000F;
+
 int main() {
 
-    HWND myConsole = GetConsoleWindow();
-
-    HDC mdc = GetDC(myConsole);
+    Console cons = Console(100,100);
 
 
-    COLORREF color = RGB(255,255,255);
-    int c = 0;
-    while(c < 10){
-        for(double i=0; i<1000;i++){
-            COORD point;
-            point.X = i;
-            point.Y = (int) 10*cos(i/(2*3.14)) + 20 ;
-            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), point);
-            cout<<"O";
-        }
-        cin.ignore();
-        c++;
-        system("CLS");
+    for(double i=0; i<100;i++){
+        int X = i;
+        int Y = (int) 10*cos(i/(2*3.14)) + 10 ;
+        cons.writeChar( '█', X, Y);
     }
-
-
-    system("CLS");
-    ReleaseDC(myConsole, mdc);
+    cons.update();
+    cin.ignore();
     cin.ignore();
 
     return 0;
